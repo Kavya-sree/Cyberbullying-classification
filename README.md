@@ -33,8 +33,8 @@ The original dataset contains 6 categories. I ommitted the category `other_cyber
 ## Key Features of model
 
 - Model Architecture: The Bi-LSTM architecture allows the model to capture contextual information from both directions in a sequence, improving the ability to detect nuances in cyberbullying language.
-- Class Imbalance Handling: Techniques like SMOTE (Synthetic Minority Oversampling Technique) were applied to address class imbalances, ensuring the model doesn't favor more prevalent categories.
-- Custom Learning Rate Scheduler: A cyclical learning rate (CLR) scheduler is implemented to optimize the learning process.
+- Class Imbalance Handling: To address class imbalance, SMOTE (Synthetic Minority Oversampling Technique) is applied, ensuring the model doesn't favor more prevalent categories.
+- Learning Rate Scheduler: A cyclical learning rate (CLR) scheduler is implemented to optimize the learning process.
 
 ## Model Performance
 
