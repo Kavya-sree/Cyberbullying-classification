@@ -43,6 +43,9 @@ The model achieves the following performance metrics:
 - Final Test Accuracy: 92.30%
 - Final Test Loss: 0.2465
 
+![Classification Report](images/classification_report.png)
+
+
 ## Installation
 
 To set up the project, follow these steps:

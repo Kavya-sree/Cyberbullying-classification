@@ -1,10 +1,19 @@
 import streamlit as st
 import pickle
+from PIL import Image
+
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import sys
 import os
+
+# Set page configuration (title and icon)
+st.set_page_config(page_title="Cyberbullying Detection", page_icon="💬", layout="wide")
+
+# Load and display the image at the top of the page
+image = Image.open('imgs/Cyberbullying Detection App.jpg')
+st.image(image, use_column_width=True)
 
 # Add the src directory to the path so we can import from it
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -48,12 +57,10 @@ def predict(model, tokenizer, label_encoder, text_input):
 
     # Preprocess the cleaned text
     preprocessed_text = preprocess_single_text(cleaned_text, tokenizer)
-    print("Shape of preprocessed text:", preprocessed_text.shape)  # Debug line
 
     try:
         # Get prediction
         prediction = model.predict(preprocessed_text)  # Shape: (1, num_classes)
-        print("Model prediction probabilities:", prediction)  # Debug line
         predicted_class = prediction.argmax(axis=1)     # Shape: (1,)
         
         # Map prediction to label
@@ -62,26 +69,43 @@ def predict(model, tokenizer, label_encoder, text_input):
     
     except Exception as e:
         st.error(f"An error occurred during prediction: {e}")
-
         return "Error"
 
 def main():
     """Main function to run the Streamlit app."""
     # Load resources
     model, tokenizer, label_encoder = load_resources()
+
+    # App layout with sidebar for future enhancements
+    st.sidebar.header("About the App")
+    st.sidebar.info("This app uses a Bi-LSTM model to classify text into different categories of cyberbullying.")
+
+    # Create two columns
+    col1, col2 = st.columns([2, 1])
     
-    st.title("Cyberbullying Classification")
+    with col1:
+        st.title("🔍 Cyberbullying Text Classification")
+        st.write("Enter a text below to classify it into one of the cyberbullying categories.")
     
-    # Input text from user
-    text_input = st.text_area("Enter a text to classify", "")
+        # Input text from user
+        text_input = st.text_area("Enter the text to classify", "")
+
+        # Predict button
+        if st.button("Predict"):
+            if text_input:
+                # Predict and display the result
+                predicted_label = predict(model, tokenizer, label_encoder, text_input)
+                st.success(f"Predicted Class: **{predicted_label}**")
+            else:
+                st.warning("Please enter some text for classification.")
     
-    if st.button("Predict"):
-        if text_input:
-            # Predict and display the result
-            predicted_label = predict(model, tokenizer, label_encoder, text_input)
-            st.write(f"Predicted Class: {predicted_label}")
-        else:
-            st.write("Please enter some text for classification.")
+    with col2:
+        # Display useful info or tips
+        st.subheader("📘 Instructions:")
+        st.write("""
+        - Enter a tweet or a message to classify.
+        - The model will predict if the message contains any form of cyberbullying (Age, Ethnicity, Gender, Religion) or if it's not cyberbullying.
+        """)
 
 if __name__ == "__main__":
     main()

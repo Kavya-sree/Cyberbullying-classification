@@ -66,8 +66,14 @@ def train_and_evaluate_model(X, y, model_builder, label_encoder, save_path=None,
     y_pred = model.predict(X_test).argmax(axis=1)
     y_true = y_test.argmax(axis=1)
     
+    report = classification_report(y_true, y_pred, target_names=label_encoder.classes_)
+
+    # Save the classification report as text
+    with open("classification_report.txt", "w") as f:
+        f.write(report)
+        
     # Display classification report with class names
-    print(f'\nClassification Report:\n', classification_report(y_true, y_pred, target_names=label_encoder.classes_))
+    print(f'\nClassification Report:\n', report)
 
     if save_path:
         create_directory(os.path.dirname(save_path))
