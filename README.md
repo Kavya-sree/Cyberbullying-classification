@@ -1,6 +1,6 @@
 # Cyberbullying-Detection app
 
-TheCyberbullying Detection App aims to identify and classify instances of cyberbullying in tweets. The app categorizes cyberbullying into the following specific categories:
+The Cyberbullying Detection App aims to identify and classify instances of cyberbullying in tweets. The app categorizes cyberbullying into the following specific categories:
 1. Age
 2. Ethnicity
 3. Gender
