@@ -100,7 +100,3 @@ The following artifacts will be saved in the models/ directory:
 - `app.py`: Streamlit application for model interaction.
 
 
-## Future Improvements
-* Expansion of Categories: Consider revising and adding more specific categories or subcategories based on user feedback and evolving needs.
-* Enhanced Data: Incorporate additional features or external data sources to improve model accuracy and robustness.
-
